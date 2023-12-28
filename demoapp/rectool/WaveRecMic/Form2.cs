@@ -282,7 +282,7 @@ namespace WaveRecMic
                     loadingdialog.Draw();
                     //System.Diagnostics.Debug.WriteLine("wait" + (t++));
                 }
-                System.Diagnostics.Debug.WriteLine("......Python end");
+                System.Diagnostics.Debug.WriteLine("....Python end");
 
                 loadingdialog.Close();
 

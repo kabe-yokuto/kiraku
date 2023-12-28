@@ -37,19 +37,19 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Yu Gothic UI", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(184, 28);
+            label1.Font = new Font("Yu Gothic UI", 48F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(115, 9);
             label1.Name = "label1";
-            label1.Size = new Size(336, 46);
+            label1.Size = new Size(784, 106);
             label1.TabIndex = 1;
             label1.Text = "音声を認識しています。";
             // 
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(162, 86);
+            pictureBox1.Location = new Point(242, 118);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(358, 321);
+            pictureBox1.Size = new Size(483, 466);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
@@ -60,7 +60,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonHighlight;
-            ClientSize = new Size(730, 419);
+            ClientSize = new Size(972, 636);
             Controls.Add(pictureBox1);
             Controls.Add(label1);
             Name = "Form4";
