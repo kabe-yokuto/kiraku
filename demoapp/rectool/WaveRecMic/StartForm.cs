@@ -25,7 +25,7 @@ using OxyPlot;
 namespace WaveRecMic
 {
 
-    public partial class Form1 : Form
+    public partial class StartForm : Form
     {
         // ò^âπèÛë‘
         const int STATUS_NONE = 0;
@@ -46,12 +46,12 @@ namespace WaveRecMic
         int status = STATUS_NONE;
 
 
-        List<Form2> deviceFormList = new List<Form2>();
+        List<RecordForm> deviceFormList = new List<RecordForm>();
         List<string> deviceNameList = new List<string>();
 
         public bool recFlag = false;
 
-        public Form1()
+        public StartForm()
         {
             InitializeComponent();
             CheckDevice();
@@ -73,7 +73,7 @@ namespace WaveRecMic
         {
             bool flag = false;
 
-            foreach( Form2 f in deviceFormList) {
+            foreach( RecordForm f in deviceFormList) {
                 if (f.recFlag) flag = true;
             }
             recFlag = flag;
@@ -204,7 +204,7 @@ namespace WaveRecMic
             {
                 this.Location = new Point(0, 0);
 
-                Form2 f = new Form2();
+                RecordForm f = new RecordForm();
 
                 int no = deviceNameList.Count;
                 deviceNameList.Add(name);
@@ -222,7 +222,7 @@ namespace WaveRecMic
             int no = deviceNameList.IndexOf(name);
             if (no != -1)
             {
-                Form2 f = deviceFormList[no];
+                RecordForm f = deviceFormList[no];
 
                 deviceNameList.Remove(name);
                 deviceFormList.Remove(f);
@@ -235,7 +235,7 @@ namespace WaveRecMic
 
         private void closeAllDevice()
         {
-            foreach (Form2 f in deviceFormList)
+            foreach (RecordForm f in deviceFormList)
             {
                 f.Close();
             }

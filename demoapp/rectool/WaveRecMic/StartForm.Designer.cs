@@ -1,6 +1,6 @@
 ﻿namespace WaveRecMic
 {
-    partial class Form1
+    partial class StartForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -41,18 +41,20 @@
             // 
             // richTextBox1
             // 
-            richTextBox1.Location = new Point(402, 50);
+            richTextBox1.Location = new Point(352, 38);
+            richTextBox1.Margin = new Padding(3, 2, 3, 2);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(361, 244);
+            richTextBox1.Size = new Size(316, 184);
             richTextBox1.TabIndex = 0;
             richTextBox1.Text = "";
             richTextBox1.TextChanged += richTextBox1_TextChanged;
             // 
             // recButton
             // 
-            recButton.Location = new Point(328, 339);
+            recButton.Location = new Point(287, 254);
+            recButton.Margin = new Padding(3, 2, 3, 2);
             recButton.Name = "recButton";
-            recButton.Size = new Size(173, 29);
+            recButton.Size = new Size(151, 22);
             recButton.TabIndex = 1;
             recButton.Text = "一括録音";
             recButton.UseVisualStyleBackColor = true;
@@ -60,10 +62,9 @@
             // 
             // stopButton
             // 
-            stopButton.Location = new Point(526, 338);
-            stopButton.Margin = new Padding(3, 4, 3, 4);
+            stopButton.Location = new Point(460, 254);
             stopButton.Name = "stopButton";
-            stopButton.Size = new Size(189, 31);
+            stopButton.Size = new Size(165, 23);
             stopButton.TabIndex = 2;
             stopButton.Text = "一括録音停止";
             stopButton.UseVisualStyleBackColor = true;
@@ -72,9 +73,9 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(384, 307);
+            label1.Location = new Point(336, 230);
             label1.Name = "label1";
-            label1.Size = new Size(84, 20);
+            label1.Size = new Size(67, 15);
             label1.TabIndex = 3;
             label1.Text = "録音待機中";
             label1.Click += label1_Click;
@@ -82,18 +83,17 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(328, 307);
+            label2.Location = new Point(287, 230);
             label2.Name = "label2";
-            label2.Size = new Size(54, 20);
+            label2.Size = new Size(43, 15);
             label2.TabIndex = 4;
             label2.Text = "状態：";
             // 
             // deviceCheckButton
             // 
-            deviceCheckButton.Location = new Point(72, 339);
-            deviceCheckButton.Margin = new Padding(3, 4, 3, 4);
+            deviceCheckButton.Location = new Point(63, 254);
             deviceCheckButton.Name = "deviceCheckButton";
-            deviceCheckButton.Size = new Size(126, 31);
+            deviceCheckButton.Size = new Size(110, 23);
             deviceCheckButton.TabIndex = 5;
             deviceCheckButton.Text = "iCare接続確認";
             deviceCheckButton.UseVisualStyleBackColor = true;
@@ -102,37 +102,38 @@
             // listBox1
             // 
             listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 20;
-            listBox1.Location = new Point(12, 50);
+            listBox1.ItemHeight = 15;
+            listBox1.Location = new Point(10, 38);
+            listBox1.Margin = new Padding(3, 2, 3, 2);
             listBox1.Name = "listBox1";
             listBox1.SelectionMode = SelectionMode.MultiSimple;
-            listBox1.Size = new Size(370, 244);
+            listBox1.Size = new Size(324, 184);
             listBox1.TabIndex = 6;
             listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(13, 21);
+            label3.Location = new Point(11, 16);
             label3.Name = "label3";
-            label3.Size = new Size(142, 20);
+            label3.Size = new Size(115, 15);
             label3.TabIndex = 7;
             label3.Text = "接続されているデバイス";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(400, 15);
+            label4.Location = new Point(350, 11);
             label4.Name = "label4";
-            label4.Size = new Size(112, 20);
+            label4.Size = new Size(90, 15);
             label4.TabIndex = 8;
             label4.Text = "選択中のデバイス";
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(782, 373);
+            ClientSize = new Size(684, 280);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(listBox1);
@@ -142,8 +143,10 @@
             Controls.Add(stopButton);
             Controls.Add(recButton);
             Controls.Add(richTextBox1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Form1";
             Text = "WAVレコーダー";
+            WindowState = FormWindowState.Maximized;
             ResumeLayout(false);
             PerformLayout();
         }

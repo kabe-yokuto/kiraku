@@ -34,9 +34,11 @@
             // 
             // okButton
             // 
-            okButton.Location = new Point(214, 196);
+            okButton.Font = new Font("Yu Gothic UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            okButton.Location = new Point(157, 321);
+            okButton.Margin = new Padding(3, 2, 3, 2);
             okButton.Name = "okButton";
-            okButton.Size = new Size(94, 29);
+            okButton.Size = new Size(310, 84);
             okButton.TabIndex = 0;
             okButton.Text = "OK";
             okButton.UseVisualStyleBackColor = true;
@@ -45,23 +47,28 @@
             // judgeLabel
             // 
             judgeLabel.AutoSize = true;
-            judgeLabel.Font = new Font("Yu Gothic UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            judgeLabel.Location = new Point(194, 70);
+            judgeLabel.Font = new Font("Yu Gothic UI", 48F, FontStyle.Regular, GraphicsUnit.Point);
+            judgeLabel.Location = new Point(157, 106);
             judgeLabel.Name = "judgeLabel";
-            judgeLabel.Size = new Size(130, 54);
+            judgeLabel.Size = new Size(293, 86);
             judgeLabel.TabIndex = 1;
-            judgeLabel.Text = "label1";
+            judgeLabel.Text = "判定結果";
             judgeLabel.TextAlign = ContentAlignment.TopCenter;
             // 
             // JudgeForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(543, 238);
+            ClientSize = new Size(630, 416);
             Controls.Add(judgeLabel);
             Controls.Add(okButton);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "JudgeForm";
             Text = "判定結果";
+            WindowState = FormWindowState.Maximized;
+            Load += JudgeForm_Load;
+            Shown += JudgeForm_Shown;
+
             ResumeLayout(false);
             PerformLayout();
         }

@@ -1,6 +1,6 @@
 ﻿namespace WaveRecMic
 {
-    partial class Form2
+    partial class RecordForm
     {
         /// <summary>
         /// Required designer variable.
@@ -38,10 +38,11 @@
             plotView1.BackColor = SystemColors.ActiveCaptionText;
             plotView1.Font = new Font("Yu Gothic UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
             plotView1.ForeColor = SystemColors.ActiveCaptionText;
-            plotView1.Location = new Point(5, 2);
+            plotView1.Location = new Point(4, 2);
+            plotView1.Margin = new Padding(3, 2, 3, 2);
             plotView1.Name = "plotView1";
             plotView1.PanCursor = Cursors.Hand;
-            plotView1.Size = new Size(372, 203);
+            plotView1.Size = new Size(500, 200);
             plotView1.TabIndex = 10;
             plotView1.Text = "plotView1";
             plotView1.ZoomHorizontalCursor = Cursors.SizeWE;
@@ -51,9 +52,11 @@
             // 
             // recButton
             // 
-            recButton.Location = new Point(29, 216);
+            recButton.Font = new Font("Yu Gothic UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            recButton.Location = new Point(12, 245);
+            recButton.Margin = new Padding(3, 2, 3, 2);
             recButton.Name = "recButton";
-            recButton.Size = new Size(121, 29);
+            recButton.Size = new Size(305, 94);
             recButton.TabIndex = 11;
             recButton.Text = "録音開始";
             recButton.UseVisualStyleBackColor = true;
@@ -61,9 +64,11 @@
             // 
             // stopButton
             // 
-            stopButton.Location = new Point(240, 216);
+            stopButton.Font = new Font("Yu Gothic UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            stopButton.Location = new Point(351, 245);
+            stopButton.Margin = new Padding(3, 2, 3, 2);
             stopButton.Name = "stopButton";
-            stopButton.Size = new Size(121, 29);
+            stopButton.Size = new Size(305, 94);
             stopButton.TabIndex = 12;
             stopButton.Text = "録音停止";
             stopButton.UseVisualStyleBackColor = true;
@@ -71,15 +76,18 @@
             // 
             // Form2
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(382, 253);
+            ClientSize = new Size(668, 349);
             Controls.Add(stopButton);
             Controls.Add(recButton);
             Controls.Add(plotView1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Form2";
             Text = "Form2";
+            WindowState = FormWindowState.Maximized;
             Load += Form2_Load;
+            Shown += Form2_Shown;
             ResumeLayout(false);
         }
 

@@ -22,7 +22,7 @@ using FFmpeg.AutoGen;
 
 namespace WaveRecMic
 {
-    public partial class Form2 : Form
+    public partial class RecordForm : Form
     {
         WaveInEvent waveIn; // = new WaveInEvent;
         WaveFileWriter waveWriter;  // = new WaveFileWriter;
@@ -43,13 +43,33 @@ namespace WaveRecMic
 
         int deviceNo;
 
-        public Form2()
+        public RecordForm()
         {
             InitializeComponent();
 
             InitPlot();
 
             recButtonControl(false);
+
+        }
+
+        public void Form2_Shown(object sender, EventArgs e)
+        {
+
+            int width = this.Size.Width;
+            int height = this.Size.Height;
+
+            plotView1.Size = new Size(width - 32, height * 3 / 4);
+            plotView1.Left = 8;
+
+
+            recButton.Left = Width/3 - recButton.Size.Width/2;
+            recButton.Top = height - recButton.Size.Height-64;
+            stopButton.Left = Width * 2 / 3 - stopButton.Size.Width / 2;
+            stopButton.Top = height - stopButton.Size.Height-64;
+
+
+            this.Refresh();
 
         }
 
@@ -144,7 +164,7 @@ namespace WaveRecMic
             if (!recFlag) return;
 
             recButtonControl(false);
-            ((Form1)this.Owner).recButtonCheck();
+            ((StartForm)this.Owner).recButtonCheck();
 
 
             waveIn.StopRecording();
@@ -268,7 +288,7 @@ namespace WaveRecMic
                 // python.exeのプロセスを起動します。
                 bool p = process.Start();
 
-                Form4 loadingdialog = new Form4();
+                ExecuteForm loadingdialog = new ExecuteForm();
                 loadingdialog.TopMost = true;
                 loadingdialog.Show();
 
