@@ -74,16 +74,17 @@
             stopButton.UseVisualStyleBackColor = true;
             stopButton.Click += button2_Click;
             // 
-            // Form2
+            // RecordForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(668, 349);
             Controls.Add(stopButton);
             Controls.Add(recButton);
             Controls.Add(plotView1);
             Margin = new Padding(3, 2, 3, 2);
-            Name = "Form2";
+            Name = "RecordForm";
             Text = "Form2";
             WindowState = FormWindowState.Maximized;
             Load += Form2_Load;

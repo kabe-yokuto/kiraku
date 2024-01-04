@@ -38,7 +38,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Yu Gothic UI", 48F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(96, 112);
+            label1.Location = new Point(96, 12);
             label1.Name = "label1";
             label1.Size = new Size(892, 86);
             label1.TabIndex = 1;
@@ -51,13 +51,13 @@
             pictureBox1.Location = new Point(212, 88);
             pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(423, 350);
+            pictureBox1.Size = new Size(500, 500);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
             // 
-            // Form4
+            // ExecuteForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -66,7 +66,7 @@
             Controls.Add(pictureBox1);
             Controls.Add(label1);
             Margin = new Padding(3, 2, 3, 2);
-            Name = "Form4";
+            Name = "ExecuteForm";
             Text = "音声認識中・・・";
             WindowState = FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
