@@ -43,6 +43,8 @@ namespace WaveRecMic
 
         int deviceNo;
 
+        int rate = 16000;
+
         public RecordForm()
         {
             InitializeComponent();
@@ -98,7 +100,7 @@ namespace WaveRecMic
 
             waveIn = new WaveInEvent();
             waveIn.DeviceNumber = no;
-            waveIn.WaveFormat = new WaveFormat(16000, 1);
+            waveIn.WaveFormat = new WaveFormat(rate, 1);
 
             deviceNo = no;
 
@@ -192,11 +194,12 @@ namespace WaveRecMic
         public OxyPlot.Axes.LinearAxis AxisX { get; } = new OxyPlot.Axes.LinearAxis();
         public OxyPlot.Axes.LinearAxis AxisY { get; } = new OxyPlot.Axes.LinearAxis();
 
+        
         private void ProcessSample(float sample)
         {
             _recorded.Add(sample);
 
-            if (_recorded.Count == 1024)
+            if (_recorded.Count == rate/10)
             {
                 var points = _recorded.Select((v, index) =>
                         new DataPoint((double)index, v)
@@ -211,11 +214,37 @@ namespace WaveRecMic
             }
 
         }
+        /*
+        private void ProcessSample(float sample)
+        {
+            _recorded.Add(sample);
+
+            if (_recorded.Count % 100 == 0)
+            {
+                var points = _recorded.Select((v, index) =>
+                        new DataPoint((double)index, v)
+                    ).ToList();
+
+                _lineSeries.Points.Clear();
+                _lineSeries.Points.AddRange(points);
+
+                plotView1.InvalidatePlot(true);
+
+                //_recorded.Clear();
+            }
+
+            if( _recorded.Count>=rate*2)
+            {
+                _recorded.RemoveRange(0, 100);
+            }
+        }
+        */
+
         void InitPlot()
         {
             var model = new PlotModel();
 
-            model.Axes.Add(new LinearAxis { Minimum = -0.2, Maximum = 0.2, Position = AxisPosition.Left, });
+            model.Axes.Add(new LinearAxis { Minimum = -1.5, Maximum = 1.5, Position = AxisPosition.Left, });
             model.Series.Add(_lineSeries);
             plotView1.Model = model;
         }
