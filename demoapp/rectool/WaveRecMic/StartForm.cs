@@ -21,6 +21,7 @@ using OxyPlot.Axes;
 using OxyPlot.Series;
 using OxyPlot.Wpf;
 using OxyPlot;
+using System.Windows.Controls;
 
 namespace WaveRecMic
 {
@@ -61,6 +62,26 @@ namespace WaveRecMic
 
         }
 
+
+        public voidÅ@StartForm_Shown(object sender, EventArgs e)
+        {
+
+            int width = this.Size.Width;
+            int height = this.Size.Height;
+
+            deviceCheckButton.Left = Width / 2 - deviceCheckButton.Size.Width / 2;
+            deviceCheckButton.Top = height - deviceCheckButton.Size.Height - 64;
+
+
+            listBox1.Left = Width / 2 - width * 3 / 4 / 2;
+            listBox1.Size = new Size(width*3/4, height * 3 / 4);
+
+            //listBox1.Size.Width = width * 3 / 4;
+            //listBox1.Size.Height = height * 3 / 4;
+
+            this.Refresh();
+
+        }
         public void recButtonControl(bool flag)
         {
             recFlag = flag;

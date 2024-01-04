@@ -41,12 +41,14 @@
             // 
             // richTextBox1
             // 
+            richTextBox1.Font = new Font("Yu Gothic UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             richTextBox1.Location = new Point(352, 38);
             richTextBox1.Margin = new Padding(3, 2, 3, 2);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.Size = new Size(316, 184);
             richTextBox1.TabIndex = 0;
             richTextBox1.Text = "";
+            richTextBox1.Visible = false;
             richTextBox1.TextChanged += richTextBox1_TextChanged;
             // 
             // recButton
@@ -58,6 +60,7 @@
             recButton.TabIndex = 1;
             recButton.Text = "一括録音";
             recButton.UseVisualStyleBackColor = true;
+            recButton.Visible = false;
             recButton.Click += recButton_Click;
             // 
             // stopButton
@@ -68,6 +71,7 @@
             stopButton.TabIndex = 2;
             stopButton.Text = "一括録音停止";
             stopButton.UseVisualStyleBackColor = true;
+            stopButton.Visible = false;
             stopButton.Click += stopButton_Click;
             // 
             // label1
@@ -78,6 +82,7 @@
             label1.Size = new Size(67, 15);
             label1.TabIndex = 3;
             label1.Text = "録音待機中";
+            label1.Visible = false;
             label1.Click += label1_Click;
             // 
             // label2
@@ -88,22 +93,25 @@
             label2.Size = new Size(43, 15);
             label2.TabIndex = 4;
             label2.Text = "状態：";
+            label2.Visible = false;
             // 
             // deviceCheckButton
             // 
-            deviceCheckButton.Location = new Point(63, 254);
+            deviceCheckButton.Font = new Font("Yu Gothic UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            deviceCheckButton.Location = new Point(12, 254);
             deviceCheckButton.Name = "deviceCheckButton";
-            deviceCheckButton.Size = new Size(110, 23);
+            deviceCheckButton.Size = new Size(269, 59);
             deviceCheckButton.TabIndex = 5;
-            deviceCheckButton.Text = "iCare接続確認";
+            deviceCheckButton.Text = "KIRAKU接続確認";
             deviceCheckButton.UseVisualStyleBackColor = true;
             deviceCheckButton.Click += deviceCheckButton_Click;
             // 
             // listBox1
             // 
+            listBox1.Font = new Font("Yu Gothic UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(10, 38);
+            listBox1.ItemHeight = 30;
+            listBox1.Location = new Point(11, 65);
             listBox1.Margin = new Padding(3, 2, 3, 2);
             listBox1.Name = "listBox1";
             listBox1.SelectionMode = SelectionMode.MultiSimple;
@@ -114,11 +122,12 @@
             // label3
             // 
             label3.AutoSize = true;
+            label3.Font = new Font("Yu Gothic UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
             label3.Location = new Point(11, 16);
             label3.Name = "label3";
-            label3.Size = new Size(115, 15);
+            label3.Size = new Size(472, 45);
             label3.TabIndex = 7;
-            label3.Text = "接続されているデバイス";
+            label3.Text = "音声入力デバイスを選択してください";
             // 
             // label4
             // 
@@ -128,12 +137,13 @@
             label4.Size = new Size(90, 15);
             label4.TabIndex = 8;
             label4.Text = "選択中のデバイス";
+            label4.Visible = false;
             // 
-            // Form1
+            // StartForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(684, 280);
+            ClientSize = new Size(692, 438);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(listBox1);
@@ -144,9 +154,10 @@
             Controls.Add(recButton);
             Controls.Add(richTextBox1);
             Margin = new Padding(3, 2, 3, 2);
-            Name = "Form1";
-            Text = "WAVレコーダー";
+            Name = "StartForm";
+            Text = "音声入力デバイスを選択してください";
             WindowState = FormWindowState.Maximized;
+            Shown += StartForm_Shown;
             ResumeLayout(false);
             PerformLayout();
         }
