@@ -1,6 +1,6 @@
 ﻿namespace WaveRecMic
 {
-    partial class Form2
+    partial class RecordForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,6 +31,8 @@
             plotView1 = new OxyPlot.WindowsForms.PlotView();
             recButton = new Button();
             stopButton = new Button();
+            normalPlayButton = new Button();
+            abnormalPlayButton = new Button();
             SuspendLayout();
             // 
             // plotView1
@@ -38,10 +40,11 @@
             plotView1.BackColor = SystemColors.ActiveCaptionText;
             plotView1.Font = new Font("Yu Gothic UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
             plotView1.ForeColor = SystemColors.ActiveCaptionText;
-            plotView1.Location = new Point(5, 2);
+            plotView1.Location = new Point(4, 2);
+            plotView1.Margin = new Padding(3, 2, 3, 2);
             plotView1.Name = "plotView1";
             plotView1.PanCursor = Cursors.Hand;
-            plotView1.Size = new Size(372, 203);
+            plotView1.Size = new Size(500, 200);
             plotView1.TabIndex = 10;
             plotView1.Text = "plotView1";
             plotView1.ZoomHorizontalCursor = Cursors.SizeWE;
@@ -51,9 +54,11 @@
             // 
             // recButton
             // 
-            recButton.Location = new Point(29, 216);
+            recButton.Font = new Font("Yu Gothic UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            recButton.Location = new Point(12, 245);
+            recButton.Margin = new Padding(3, 2, 3, 2);
             recButton.Name = "recButton";
-            recButton.Size = new Size(121, 29);
+            recButton.Size = new Size(305, 94);
             recButton.TabIndex = 11;
             recButton.Text = "録音開始";
             recButton.UseVisualStyleBackColor = true;
@@ -61,25 +66,57 @@
             // 
             // stopButton
             // 
-            stopButton.Location = new Point(240, 216);
+            stopButton.Font = new Font("Yu Gothic UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            stopButton.Location = new Point(351, 245);
+            stopButton.Margin = new Padding(3, 2, 3, 2);
             stopButton.Name = "stopButton";
-            stopButton.Size = new Size(121, 29);
+            stopButton.Size = new Size(305, 94);
             stopButton.TabIndex = 12;
             stopButton.Text = "録音停止";
             stopButton.UseVisualStyleBackColor = true;
             stopButton.Click += button2_Click;
             // 
-            // Form2
+            // normalPlayButton
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            normalPlayButton.Font = new Font("Yu Gothic UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            normalPlayButton.Location = new Point(12, 352);
+            normalPlayButton.Margin = new Padding(3, 2, 3, 2);
+            normalPlayButton.Name = "normalPlayButton";
+            normalPlayButton.Size = new Size(305, 94);
+            normalPlayButton.TabIndex = 13;
+            normalPlayButton.Text = "正常音再生";
+            normalPlayButton.UseVisualStyleBackColor = true;
+            normalPlayButton.Click += normalPlayButton_Click;
+            // 
+            // abnormalPlayButton
+            // 
+            abnormalPlayButton.Font = new Font("Yu Gothic UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            abnormalPlayButton.Location = new Point(351, 352);
+            abnormalPlayButton.Margin = new Padding(3, 2, 3, 2);
+            abnormalPlayButton.Name = "abnormalPlayButton";
+            abnormalPlayButton.Size = new Size(305, 94);
+            abnormalPlayButton.TabIndex = 14;
+            abnormalPlayButton.Text = "異常音再生";
+            abnormalPlayButton.UseVisualStyleBackColor = true;
+            abnormalPlayButton.Click += abnormalPlayButton_Click;
+            // 
+            // RecordForm
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(382, 253);
+            BackColor = SystemColors.ControlLightLight;
+            ClientSize = new Size(685, 489);
+            Controls.Add(abnormalPlayButton);
+            Controls.Add(normalPlayButton);
             Controls.Add(stopButton);
             Controls.Add(recButton);
             Controls.Add(plotView1);
-            Name = "Form2";
+            Margin = new Padding(3, 2, 3, 2);
+            Name = "RecordForm";
             Text = "Form2";
+            WindowState = FormWindowState.Maximized;
             Load += Form2_Load;
+            Shown += Form2_Shown;
             ResumeLayout(false);
         }
 
@@ -88,5 +125,7 @@
         private OxyPlot.WindowsForms.PlotView plotView1;
         private Button recButton;
         private Button stopButton;
+        private Button normalPlayButton;
+        private Button abnormalPlayButton;
     }
 }

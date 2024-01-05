@@ -1,6 +1,6 @@
 ﻿namespace WaveRecMic
 {
-    partial class Form4
+    partial class ExecuteForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form4));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExecuteForm));
             label1 = new Label();
             pictureBox1 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -38,33 +38,37 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Yu Gothic UI", 48F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(115, 9);
+            label1.Location = new Point(96, 12);
             label1.Name = "label1";
-            label1.Size = new Size(784, 106);
+            label1.Size = new Size(892, 86);
             label1.TabIndex = 1;
-            label1.Text = "音声を認識しています。";
+            label1.Text = "＊＊＊音声を判定中です＊＊＊";
+            label1.Click += label1_Click;
             // 
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(242, 118);
+            pictureBox1.Location = new Point(212, 88);
+            pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(483, 466);
+            pictureBox1.Size = new Size(500, 500);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
             // 
-            // Form4
+            // ExecuteForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonHighlight;
-            ClientSize = new Size(972, 636);
+            ClientSize = new Size(850, 477);
             Controls.Add(pictureBox1);
             Controls.Add(label1);
-            Name = "Form4";
+            Margin = new Padding(3, 2, 3, 2);
+            Name = "ExecuteForm";
             Text = "音声認識中・・・";
+            WindowState = FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
