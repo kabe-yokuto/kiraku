@@ -65,10 +65,14 @@ namespace WaveRecMic
             plotView1.Left = 8;
 
 
-            recButton.Left = Width/3 - recButton.Size.Width/2;
-            recButton.Top = height - recButton.Size.Height-64;
-            stopButton.Left = Width * 2 / 3 - stopButton.Size.Width / 2;
-            stopButton.Top = height - stopButton.Size.Height-64;
+            recButton.Left = Width / 5 - recButton.Size.Width / 2;
+            recButton.Top = height - recButton.Size.Height - 64;
+            stopButton.Left = Width * 2 / 5 - stopButton.Size.Width / 2;
+            stopButton.Top = height - stopButton.Size.Height - 64;
+            normalPlayButton.Left = Width * 3 / 5 - normalPlayButton.Size.Width / 2;
+            normalPlayButton.Top = height - normalPlayButton.Size.Height - 64;
+            abnormalPlayButton.Left = Width * 4 / 5 - abnormalPlayButton.Size.Width / 2;
+            abnormalPlayButton.Top = height - abnormalPlayButton.Size.Height - 64;
 
 
             this.Refresh();
@@ -194,12 +198,12 @@ namespace WaveRecMic
         public OxyPlot.Axes.LinearAxis AxisX { get; } = new OxyPlot.Axes.LinearAxis();
         public OxyPlot.Axes.LinearAxis AxisY { get; } = new OxyPlot.Axes.LinearAxis();
 
-        
+
         private void ProcessSample(float sample)
         {
             _recorded.Add(sample);
 
-            if (_recorded.Count == rate/10)
+            if (_recorded.Count == rate / 10)
             {
                 var points = _recorded.Select((v, index) =>
                         new DataPoint((double)index, v)
@@ -326,7 +330,7 @@ namespace WaveRecMic
                 // python.exeのプロセスの終了を待ちます。
                 //process.WaitForExit(60 * 10 * 1000);　//とりあえず適当に１０分でタイムアウトとしておく
                 int t = 0;
-                while( process.WaitForExit(100) == false)
+                while (process.WaitForExit(100) == false)
                 {
                     loadingdialog.Draw();
                     //System.Diagnostics.Debug.WriteLine("wait" + (t++));
@@ -363,6 +367,16 @@ namespace WaveRecMic
         }
 
         private void Form2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void normalPlayButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void abnormalPlayButton_Click(object sender, EventArgs e)
         {
 
         }
