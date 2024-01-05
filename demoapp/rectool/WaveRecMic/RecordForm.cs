@@ -26,6 +26,8 @@ namespace WaveRecMic
     {
         WaveInEvent waveIn; // = new WaveInEvent;
         WaveFileWriter waveWriter;  // = new WaveFileWriter;
+        
+        WaveOutEvent waveOut;
 
         string formName;
 
@@ -373,12 +375,26 @@ namespace WaveRecMic
 
         private void normalPlayButton_Click(object sender, EventArgs e)
         {
+            waveOut = new WaveOutEvent();
+            AudioFileReader reader = new AudioFileReader("normal.wav");
+            waveOut.Init(reader);
+            waveOut.Play();
 
+            while (waveOut.PlaybackState == PlaybackState.Playing) ; // 再生の終了を待つ
+
+            waveOut.Dispose();
         }
 
         private void abnormalPlayButton_Click(object sender, EventArgs e)
         {
+            waveOut = new WaveOutEvent();
+            AudioFileReader reader = new AudioFileReader("abnormal.wav");
+            waveOut.Init(reader);
+            waveOut.Play();
 
+            while (waveOut.PlaybackState == PlaybackState.Playing) ; // 再生の終了を待つ
+
+            waveOut.Dispose();
         }
     }
 
