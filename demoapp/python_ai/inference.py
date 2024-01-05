@@ -4,7 +4,8 @@ import numpy as np
 import tensorflow as tf
 tf.get_logger().setLevel("ERROR")
 
-data_path = "C:/Users/kanet/音源入れ場/実地試験12-26/231221_120637_Soundland_HLSM_Guttural.wav"
+data_path = "" #判定したい音源のPATH
+model_path = './my_model' #モデルのPATH
 SampRate = 16000
 
 data_list = np.array([])
@@ -34,8 +35,8 @@ def app_stft(data):
     return data
 
 data_list = np.array(list(map(lambda x: app_stft(x), data_list)))
-model = tf.keras.models.load_model('./to_happyoukai/saved_model/my_model')
+model = tf.keras.models.load_model(model_path)
 
-res = model.predict(data_list)
-print(np.count_nonzero(res > 0.5))
-print(np.count_nonzero(res <= 0.5))
+res = model.predict(data_list) #resは、区間毎に誤嚥であるfroat型の確率(0<x<1)で判定された結果が格納されたnp.arrayの配列
+#print(f'誤嚥の疑いあり:{np.count_nonzero(res > 0.5)}')
+#print(f'誤嚥の疑いなし:{np.count_nonzero(res <= 0.5)}')
