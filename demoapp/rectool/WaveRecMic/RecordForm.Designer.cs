@@ -31,8 +31,6 @@
             plotView1 = new OxyPlot.WindowsForms.PlotView();
             recButton = new Button();
             stopButton = new Button();
-            normalPlayButton = new Button();
-            abnormalPlayButton = new Button();
             SuspendLayout();
             // 
             // plotView1
@@ -76,38 +74,12 @@
             stopButton.UseVisualStyleBackColor = true;
             stopButton.Click += button2_Click;
             // 
-            // normalPlayButton
-            // 
-            normalPlayButton.Font = new Font("Yu Gothic UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            normalPlayButton.Location = new Point(12, 352);
-            normalPlayButton.Margin = new Padding(3, 2, 3, 2);
-            normalPlayButton.Name = "normalPlayButton";
-            normalPlayButton.Size = new Size(305, 94);
-            normalPlayButton.TabIndex = 13;
-            normalPlayButton.Text = "正常音再生";
-            normalPlayButton.UseVisualStyleBackColor = true;
-            normalPlayButton.Click += normalPlayButton_Click;
-            // 
-            // abnormalPlayButton
-            // 
-            abnormalPlayButton.Font = new Font("Yu Gothic UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            abnormalPlayButton.Location = new Point(351, 352);
-            abnormalPlayButton.Margin = new Padding(3, 2, 3, 2);
-            abnormalPlayButton.Name = "abnormalPlayButton";
-            abnormalPlayButton.Size = new Size(305, 94);
-            abnormalPlayButton.TabIndex = 14;
-            abnormalPlayButton.Text = "異常音再生";
-            abnormalPlayButton.UseVisualStyleBackColor = true;
-            abnormalPlayButton.Click += abnormalPlayButton_Click;
-            // 
             // RecordForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(685, 489);
-            Controls.Add(abnormalPlayButton);
-            Controls.Add(normalPlayButton);
             Controls.Add(stopButton);
             Controls.Add(recButton);
             Controls.Add(plotView1);
@@ -125,7 +97,5 @@
         private OxyPlot.WindowsForms.PlotView plotView1;
         private Button recButton;
         private Button stopButton;
-        private Button normalPlayButton;
-        private Button abnormalPlayButton;
     }
 }

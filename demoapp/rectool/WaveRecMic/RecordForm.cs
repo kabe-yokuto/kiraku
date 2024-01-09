@@ -67,14 +67,14 @@ namespace WaveRecMic
             plotView1.Left = 8;
 
 
-            recButton.Left = Width / 5 - recButton.Size.Width / 2;
+            recButton.Left = Width / 3 - recButton.Size.Width / 2;
             recButton.Top = height - recButton.Size.Height - 64;
-            stopButton.Left = Width * 2 / 5 - stopButton.Size.Width / 2;
+            stopButton.Left = Width * 2 / 3 - stopButton.Size.Width / 2;
             stopButton.Top = height - stopButton.Size.Height - 64;
-            normalPlayButton.Left = Width * 3 / 5 - normalPlayButton.Size.Width / 2;
-            normalPlayButton.Top = height - normalPlayButton.Size.Height - 64;
-            abnormalPlayButton.Left = Width * 4 / 5 - abnormalPlayButton.Size.Width / 2;
-            abnormalPlayButton.Top = height - abnormalPlayButton.Size.Height - 64;
+            //normalPlayButton.Left = Width * 3 / 5 - normalPlayButton.Size.Width / 2;
+            //normalPlayButton.Top = height - normalPlayButton.Size.Height - 64;
+            //abnormalPlayButton.Left = Width * 4 / 5 - abnormalPlayButton.Size.Width / 2;
+            //abnormalPlayButton.Top = height - abnormalPlayButton.Size.Height - 64;
 
 
             this.Refresh();
