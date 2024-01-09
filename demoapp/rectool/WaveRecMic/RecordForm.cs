@@ -26,6 +26,8 @@ namespace WaveRecMic
     {
         WaveInEvent waveIn; // = new WaveInEvent;
         WaveFileWriter waveWriter;  // = new WaveFileWriter;
+        
+        WaveOutEvent waveOut;
 
         string formName;
 
@@ -65,14 +67,14 @@ namespace WaveRecMic
             plotView1.Left = 8;
 
 
-            recButton.Left = Width / 5 - recButton.Size.Width / 2;
+            recButton.Left = Width / 3 - recButton.Size.Width / 2;
             recButton.Top = height - recButton.Size.Height - 64;
-            stopButton.Left = Width * 2 / 5 - stopButton.Size.Width / 2;
+            stopButton.Left = Width * 2 / 3 - stopButton.Size.Width / 2;
             stopButton.Top = height - stopButton.Size.Height - 64;
-            normalPlayButton.Left = Width * 3 / 5 - normalPlayButton.Size.Width / 2;
-            normalPlayButton.Top = height - normalPlayButton.Size.Height - 64;
-            abnormalPlayButton.Left = Width * 4 / 5 - abnormalPlayButton.Size.Width / 2;
-            abnormalPlayButton.Top = height - abnormalPlayButton.Size.Height - 64;
+            //normalPlayButton.Left = Width * 3 / 5 - normalPlayButton.Size.Width / 2;
+            //normalPlayButton.Top = height - normalPlayButton.Size.Height - 64;
+            //abnormalPlayButton.Left = Width * 4 / 5 - abnormalPlayButton.Size.Width / 2;
+            //abnormalPlayButton.Top = height - abnormalPlayButton.Size.Height - 64;
 
 
             this.Refresh();
@@ -373,12 +375,26 @@ namespace WaveRecMic
 
         private void normalPlayButton_Click(object sender, EventArgs e)
         {
+            waveOut = new WaveOutEvent();
+            AudioFileReader reader = new AudioFileReader("normal.wav");
+            waveOut.Init(reader);
+            waveOut.Play();
 
+            while (waveOut.PlaybackState == PlaybackState.Playing) ; // 再生の終了を待つ
+
+            waveOut.Dispose();
         }
 
         private void abnormalPlayButton_Click(object sender, EventArgs e)
         {
+            waveOut = new WaveOutEvent();
+            AudioFileReader reader = new AudioFileReader("abnormal.wav");
+            waveOut.Init(reader);
+            waveOut.Play();
 
+            while (waveOut.PlaybackState == PlaybackState.Playing) ; // 再生の終了を待つ
+
+            waveOut.Dispose();
         }
     }
 
