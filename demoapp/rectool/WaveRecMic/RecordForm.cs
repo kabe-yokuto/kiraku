@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//using NAudio.CoreAudio;
 using NAudio.Wave;
 using System.Transactions;
 
@@ -373,28 +374,142 @@ namespace WaveRecMic
 
         }
 
+        private void PlayMemoryStream(string filename)
+        {
+            /*
+            using (WaveOutEvent waveOut = new WaveOutEvent())
+            {
+                bool play = true;
+                using (AudioFileReader reader = new AudioFileReader(filename))
+                {
+                    Debug.WriteLine(filename+ " Length=" + reader.Length);
+
+                    using (WaveChannel32 pcm = new WaveChannel32(reader))
+                    {
+                        waveOut.Init(pcm);
+                        waveOut.Play();
+
+                        waveOut.PlaybackStopped += (s, args) =>
+                        {
+                            // ここで何か処理を行うこともできます
+                            Debug.WriteLine("Playback stopped");
+                           play = false;
+                        };
+
+       
+                    }
+                }
+                //while (waveOut.PlaybackState == PlaybackState.Playing)
+                while (play)
+                {
+                    Thread.Sleep(100);
+                }
+                waveOut.Dispose();
+            }
+            */
+
+            /*            
+            // WAVファイルをメモリに読み込む
+            AudioFileReader reader = new AudioFileReader(fileName);
+
+            // 再生ストリームを作成
+            AudioStream stream = reader.CreateStream();
+
+            // 再生する
+            stream.Start();
+
+            // 波形表示用のコントロールに反映する処理
+            void UpdatePlot()
+            {
+                // 再生ストリームからデータを取得
+                byte[] data = stream.GetData(0, 1024);
+
+                // 波形表示用のコントロールに反映
+                PlotModel model = plotView1.Model;
+                model.Series.Clear();
+                model.Series.Add(new LineSeries(data));
+                plotView1.Model = model;
+            }
+
+            // 再生の終了を判定する処理
+            void CheckPlaybackEnd()
+            {
+                if (!stream.IsPlaying)
+                {
+                    // 再生が終了した
+                    stream.Dispose();
+                    stream = null;
+                    timer.Stop();
+                }
+            }
+
+            // 一定間隔でUpdatePlot()とCheckPlaybackEnd()を呼び出す
+            Timer timer = new Timer(1000 / 16000, UpdatePlot);
+            timer.Tick += CheckPlaybackEnd;
+            timer.Start();
+            */
+
+            // WAVファイルの読み込み
+            WaveStream waveStream = new WaveFileReader(filename);
+
+            // メモリに読み込む
+            MemoryStream memoryStream = new MemoryStream();
+            WaveFileWriter.WriteWavFileToStream(memoryStream, waveStream);
+
+            // 再生
+            PlayWavFromMemory(memoryStream);
+
+            // 波形表示
+            PlotWaveform(memoryStream);
+        }
+
+        void PlayWavFromMemory(MemoryStream memoryStream)
+        {
+            using (WaveStream waveStream = new WaveFileReader(new MemoryStream(memoryStream.ToArray())))
+            using (WaveOutEvent waveOut = new WaveOutEvent())
+            {
+                waveOut.Init(waveStream);
+                waveOut.Play();
+                while (waveOut.PlaybackState == PlaybackState.Playing)
+                {
+                    System.Threading.Thread.Sleep(100);
+                }
+            }
+        }
+
+       void PlotWaveform(MemoryStream memoryStream)
+        {
+            // OxyPlotの初期化
+            var plotModel = new PlotModel();
+            var lineSeries = new LineSeries();
+
+            // バイトデータを取得
+            byte[] waveData = memoryStream.GetBuffer();
+
+            // 波形をOxyPlotのLineSeriesに追加
+            for (int i = 0; i < waveData.Length; i += 2)
+            {
+                short sample = BitConverter.ToInt16(waveData, i);
+                lineSeries.Points.Add(new DataPoint(i / 2, sample));
+            }
+
+            // プロットにLineSeriesを追加
+            plotModel.Series.Add(lineSeries);
+
+            // グラフを表示
+        
+            plotView1.Model = plotModel;
+      
+        }
+
         private void normalPlayButton_Click(object sender, EventArgs e)
         {
-            waveOut = new WaveOutEvent();
-            AudioFileReader reader = new AudioFileReader("normal.wav");
-            waveOut.Init(reader);
-            waveOut.Play();
-
-            while (waveOut.PlaybackState == PlaybackState.Playing) ; // 再生の終了を待つ
-
-            waveOut.Dispose();
+            PlayMemoryStream("normal.wav");
         }
 
         private void abnormalPlayButton_Click(object sender, EventArgs e)
         {
-            waveOut = new WaveOutEvent();
-            AudioFileReader reader = new AudioFileReader("abnormal.wav");
-            waveOut.Init(reader);
-            waveOut.Play();
-
-            while (waveOut.PlaybackState == PlaybackState.Playing) ; // 再生の終了を待つ
-
-            waveOut.Dispose();
+            PlayMemoryStream("abnormal.wav");
         }
     }
 
