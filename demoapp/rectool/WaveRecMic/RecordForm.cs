@@ -24,6 +24,8 @@ namespace WaveRecMic
 {
     public partial class RecordForm : Form
     {
+        string pythonFolder = "D:/kiraku/demoapp/python_ai/";
+
         WaveInEvent waveIn; // = new WaveInEvent;
         WaveFileWriter waveWriter;  // = new WaveFileWriter;
         
@@ -302,7 +304,8 @@ namespace WaveRecMic
 
             // Pythonのアプリ―ケーション
             // C#の実行ファイルと同じフォルダかフルパスで指定します。
-            string PythonApp = "biosonoColabTest.py";
+            //string PythonApp = "biosonoColabTest.py";
+            string PythonApp = pythonFolder + "interface.py";
             //string PythonApp = "hello.py";
 
             // ファイルネーム　トレーニングするか？(-Tでトレーニング)
