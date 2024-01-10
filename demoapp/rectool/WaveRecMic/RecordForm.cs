@@ -19,12 +19,15 @@ using System.Diagnostics.Tracing;
 using System.Xml.Linq;
 
 using FFmpeg.AutoGen;
+using System.Linq.Expressions;
 
 namespace WaveRecMic
 {
     public partial class RecordForm : Form
     {
-        string pythonFolder = "D:/kiraku/demoapp/python_ai/";
+        //string pythonFolder = "D:\\kiraku\\demoapp\\python_ai\\";
+        //string pythonFolder = "D:\\kiraku\\demoapp\\rectool\\WaveRecMic\\bin\\Debug\\net6.0-windows\\biosonoColabTest.py";
+        string pythonFolder = "biosonoColabTest.py";
 
         WaveInEvent waveIn; // = new WaveInEvent;
         WaveFileWriter waveWriter;  // = new WaveFileWriter;
@@ -304,8 +307,9 @@ namespace WaveRecMic
 
             // Pythonのアプリ―ケーション
             // C#の実行ファイルと同じフォルダかフルパスで指定します。
-            //string PythonApp = "biosonoColabTest.py";
-            string PythonApp = pythonFolder + "interface.py";
+            string PythonApp = "biosonoColabTest.py";
+           // string PythonApp = "inference.py";
+            //string PythonApp = pythonFolder + "inference.py";
             //string PythonApp = "hello.py";
 
             // ファイルネーム　トレーニングするか？(-Tでトレーニング)
@@ -314,46 +318,52 @@ namespace WaveRecMic
             // python.exeの実行結果を読み込む変数
             var result = string.Empty;
 
-            // python.exeのプロセスを設定します。
-            using (var process = new Process
-            {
-                // Process.Startメソッドに渡すプロパティを設定します。
-                StartInfo = new ProcessStartInfo(PythonExe)
+            try{
+                // python.exeのプロセスを設定します。
+                using (var process = new Process
                 {
-                    // OSのシェルを使用しません。
-                    UseShellExecute = false,
-                    // pythonのテキスト出力をStandardOutputストリームに出力します。
-                    RedirectStandardOutput = true,
-                    // python.exeのコマンドライン引数
-                    Arguments = PythonApp
-                }
-            })
-            {
-                // python.exeのプロセスを起動します。
-                bool p = process.Start();
-
-                ExecuteForm loadingdialog = new ExecuteForm();
-                loadingdialog.TopMost = true;
-                loadingdialog.Show();
-
-                System.Diagnostics.Debug.WriteLine("Python start....");
-
-                // python.exeのプロセスの終了を待ちます。
-                //process.WaitForExit(60 * 10 * 1000);　//とりあえず適当に１０分でタイムアウトとしておく
-                int t = 0;
-                while (process.WaitForExit(100) == false)
+                    // Process.Startメソッドに渡すプロパティを設定します。
+                    StartInfo = new ProcessStartInfo(PythonExe)
+                    {
+                        // OSのシェルを使用しません。
+                        UseShellExecute = false,
+                        // pythonのテキスト出力をStandardOutputストリームに出力します。
+                        RedirectStandardOutput = true,
+                        // python.exeのコマンドライン引数
+                        Arguments = PythonApp
+                    }
+                })
                 {
-                    loadingdialog.Draw();
-                    //System.Diagnostics.Debug.WriteLine("wait" + (t++));
+                    // python.exeのプロセスを起動します。
+                    bool p = process.Start();
+
+                    ExecuteForm loadingdialog = new ExecuteForm();
+                    loadingdialog.TopMost = true;
+                    loadingdialog.Show();
+
+                    System.Diagnostics.Debug.WriteLine("Python start....");
+
+                    // python.exeのプロセスの終了を待ちます。
+                    // process.WaitForExit(60 * 20 * 1000);　//とりあえず適当に１０分でタイムアウトとしておく
+
+                    int t = 0;
+                    while (process.WaitForExit(100) == false)
+                    {
+                        loadingdialog.Draw();
+                        //System.Diagnostics.Debug.WriteLine("wait" + (t++));
+                    }
+
+                    System.Diagnostics.Debug.WriteLine("....Python end");
+
+                    loadingdialog.Close();
+
+                    result = process.StandardOutput.ReadToEnd();
+
                 }
-                System.Diagnostics.Debug.WriteLine("....Python end");
 
-                loadingdialog.Close();
-
-                result = process.StandardOutput.ReadToEnd();
-
+            } catch ( Exception e){
+                    Debug.WriteLine("error:"+e.ToString());
             }
-
             // python.exeの実行結果を表示します。
             //System.Diagnostics.Debug.WriteLine(result);
 

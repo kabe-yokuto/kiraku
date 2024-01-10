@@ -3,11 +3,20 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 import sys
 import numpy as np
 import tensorflow as tf
+#import cv2
+#import time
+
 tf.get_logger().setLevel("ERROR")
 
 args = sys.argv
 
 data_path = args[1] #判定したい音源のPATH
+
+print("********** start "+data_path" **********")
+
+#time.sleep(30)
+#cv2.WaitKey(0)
+
 categorize_model_path = './saved_model/categorize_model' #分類モデルのPATH
 determine_model_path = './saved_model/determine_model' #異常判別モデルのPATH
 SampRate = 16000
@@ -58,6 +67,6 @@ goen_count = np.count_nonzero(determined_data > 0.5)
 seijou_count = np.count_nonzero(determined_data <= 0.5)
 
 if goen_count *2 > seijou_count:
-    print('Result:Abnormal')
+    print('result:Abnormal')
 else:
-    print('Result:Normal')
+    print('result:Normal')
