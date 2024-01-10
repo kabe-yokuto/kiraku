@@ -4,8 +4,9 @@ import numpy as np
 import tensorflow as tf
 tf.get_logger().setLevel("ERROR")
 
-data_path = "" #判定したい音源のPATH
-model_path = './my_model' #モデルのPATH
+data_path = '' #判定したい音源のPATH
+categorize_model_path = './saved_model/categorize_model' #分類モデルのPATH
+determine_model_path = './saved_model/determine_model' #異常判別モデルのPATH
 SampRate = 16000
 
 data_list = np.array([])
@@ -35,8 +36,26 @@ def app_stft(data):
     return data
 
 data_list = np.array(list(map(lambda x: app_stft(x), data_list)))
-model = tf.keras.models.load_model(model_path)
 
-res = model.predict(data_list) #resは、区間毎に誤嚥であるfroat型の確率(0<x<1)で判定された結果が格納されたnp.arrayの配列
-#print(f'誤嚥の疑いあり:{np.count_nonzero(res > 0.5)}')
-#print(f'誤嚥の疑いなし:{np.count_nonzero(res <= 0.5)}')
+categorize_model = tf.keras.models.load_model(categorize_model_path)
+categorized_data = categorize_model.predict(data_list) #categorized_dataは、区間毎に5種の音声のそれぞれの確率(0<x<1)のnp.arrayの配列
+labeled_list = np.argmax(categorized_data, axis = 1)
+
+to_determine_list = []
+
+for i in range(len(labeled_list)):
+    if labeled_list[i] == 3:
+        to_determine_list.append(data_list[i])
+
+to_determine_list = np.array(to_determine_list)
+determine_model = tf.keras.models.load_model(determine_model_path)
+determined_data = determine_model.predict(to_determine_list) #determined_dataは、区間毎に誤嚥であるfroat型の確率(0<x<1)のnp.arrayの配列
+
+goen_count = np.count_nonzero(determined_data > 0.5)
+seijou_count = np.count_nonzero(determined_data > 0.5)
+
+print(f'{goen_count}:{seijou_count}')
+if goen_count *2 > seijou_count:
+    print('誤嚥の疑いがあります')
+else:
+    print('誤嚥の疑いはありません')
