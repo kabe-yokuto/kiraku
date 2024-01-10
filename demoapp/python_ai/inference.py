@@ -1,10 +1,13 @@
 ﻿import os
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
+import sys
 import numpy as np
 import tensorflow as tf
 tf.get_logger().setLevel("ERROR")
 
-data_path = '' #判定したい音源のPATH
+args = sys.argv
+
+data_path = args[1] #判定したい音源のPATH
 categorize_model_path = './saved_model/categorize_model' #分類モデルのPATH
 determine_model_path = './saved_model/determine_model' #異常判別モデルのPATH
 SampRate = 16000
@@ -52,10 +55,9 @@ determine_model = tf.keras.models.load_model(determine_model_path)
 determined_data = determine_model.predict(to_determine_list) #determined_dataは、区間毎に誤嚥であるfroat型の確率(0<x<1)のnp.arrayの配列
 
 goen_count = np.count_nonzero(determined_data > 0.5)
-seijou_count = np.count_nonzero(determined_data > 0.5)
+seijou_count = np.count_nonzero(determined_data <= 0.5)
 
-print(f'{goen_count}:{seijou_count}')
 if goen_count *2 > seijou_count:
-    print('誤嚥の疑いがあります')
+    print('Result:Abnormal')
 else:
-    print('誤嚥の疑いはありません')
+    print('Result:Normal')
