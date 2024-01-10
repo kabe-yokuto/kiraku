@@ -101,6 +101,8 @@ namespace WaveRecMic
 
             recButtonControl(true);
 
+            _lineSeries.Points.Clear();
+
             string[] words = name.Split(":");
             int no = int.Parse(words[0]);
 
@@ -201,6 +203,7 @@ namespace WaveRecMic
         public OxyPlot.Axes.LinearAxis AxisY { get; } = new OxyPlot.Axes.LinearAxis();
 
 
+        
         private void ProcessSample(float sample)
         {
             _recorded.Add(sample);
@@ -215,6 +218,7 @@ namespace WaveRecMic
                 _lineSeries.Points.AddRange(points);
 
                 plotView1.InvalidatePlot(true);
+                //plotView1.Invalidate();
 
                 _recorded.Clear();
             }
@@ -223,29 +227,31 @@ namespace WaveRecMic
         /*
         private void ProcessSample(float sample)
         {
+            _recorded.RemoveRange(0, 1);
             _recorded.Add(sample);
+
+
+            var points = _recorded.Select((v, index) =>
+                    new DataPoint((double)index, v)
+                ).ToList();
+
+            _lineSeries.Points.Clear();
+            _lineSeries.Points.AddRange(points);
 
             if (_recorded.Count % 100 == 0)
             {
-                var points = _recorded.Select((v, index) =>
-                        new DataPoint((double)index, v)
-                    ).ToList();
-
-                _lineSeries.Points.Clear();
-                _lineSeries.Points.AddRange(points);
 
                 plotView1.InvalidatePlot(true);
 
                 //_recorded.Clear();
             }
 
-            if( _recorded.Count>=rate*2)
+            if( _recorded.Count>=rate*5)
             {
-                _recorded.RemoveRange(0, 100);
+                //_recorded.RemoveRange(0, 100);
             }
         }
         */
-
         void InitPlot()
         {
             var model = new PlotModel();
