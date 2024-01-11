@@ -9,7 +9,7 @@ from tensorflow.keras import layers
 import time
 tf.get_logger().setLevel("ERROR")
 
-data_path = './音源入れ場'
+data_path = './SoundSource'
 SampRate = 16000 #SamplingRate
 
 start_time = time.time()

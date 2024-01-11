@@ -28,9 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RecordForm));
             plotView1 = new OxyPlot.WindowsForms.PlotView();
             recButton = new Button();
             stopButton = new Button();
+            pictureBox1 = new PictureBox();
+            line_image = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)line_image).BeginInit();
             SuspendLayout();
             // 
             // plotView1
@@ -38,7 +43,7 @@
             plotView1.BackColor = SystemColors.ActiveCaptionText;
             plotView1.Font = new Font("Yu Gothic UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
             plotView1.ForeColor = SystemColors.ActiveCaptionText;
-            plotView1.Location = new Point(4, 2);
+            plotView1.Location = new Point(12, 160);
             plotView1.Margin = new Padding(3, 2, 3, 2);
             plotView1.Name = "plotView1";
             plotView1.PanCursor = Cursors.Hand;
@@ -53,26 +58,46 @@
             // recButton
             // 
             recButton.Font = new Font("Yu Gothic UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            recButton.Location = new Point(12, 245);
+            recButton.Location = new Point(12, 384);
             recButton.Margin = new Padding(3, 2, 3, 2);
             recButton.Name = "recButton";
             recButton.Size = new Size(305, 94);
             recButton.TabIndex = 11;
-            recButton.Text = "録音開始";
+            recButton.Text = "Start recording";
             recButton.UseVisualStyleBackColor = true;
             recButton.Click += button1_Click;
             // 
             // stopButton
             // 
             stopButton.Font = new Font("Yu Gothic UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            stopButton.Location = new Point(351, 245);
+            stopButton.Location = new Point(351, 384);
             stopButton.Margin = new Padding(3, 2, 3, 2);
             stopButton.Name = "stopButton";
             stopButton.Size = new Size(305, 94);
             stopButton.TabIndex = 12;
-            stopButton.Text = "録音停止";
+            stopButton.Text = "Stop recording";
             stopButton.UseVisualStyleBackColor = true;
             stopButton.Click += button2_Click;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(10, 10);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(230, 100);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 13;
+            pictureBox1.TabStop = false;
+            // 
+            // line_image
+            // 
+            line_image.Image = (Image)resources.GetObject("line_image.Image");
+            line_image.Location = new Point(0, 117);
+            line_image.Name = "line_image";
+            line_image.Size = new Size(600, 1);
+            line_image.SizeMode = PictureBoxSizeMode.StretchImage;
+            line_image.TabIndex = 14;
+            line_image.TabStop = false;
             // 
             // RecordForm
             // 
@@ -80,6 +105,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(685, 489);
+            Controls.Add(line_image);
+            Controls.Add(pictureBox1);
             Controls.Add(stopButton);
             Controls.Add(recButton);
             Controls.Add(plotView1);
@@ -89,6 +116,8 @@
             WindowState = FormWindowState.Maximized;
             Load += Form2_Load;
             Shown += Form2_Shown;
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)line_image).EndInit();
             ResumeLayout(false);
         }
 
@@ -97,5 +126,7 @@
         private OxyPlot.WindowsForms.PlotView plotView1;
         private Button recButton;
         private Button stopButton;
+        private PictureBox pictureBox1;
+        private PictureBox line_image;
     }
 }

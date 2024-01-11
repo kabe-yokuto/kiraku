@@ -8,7 +8,7 @@ from tensorflow.keras import layers
 import time
 tf.get_logger().setLevel("ERROR")
 
-data_path = './音源入れ場'
+data_path = './SoundSource'
 SampRate = 16000 #SamplingRate
 class_list = ['ノイズ','飲み込み音','言葉','呼吸音','無音']
 num_class = len(class_list)

@@ -10,15 +10,10 @@ tf.get_logger().setLevel("ERROR")
 
 args = sys.argv
 
-data_path = args[1] #判定したい音源のPATH
+data_path = 'D:/kiraku/demoapp/python_ai/SoundSource/test-12-26/231221_120637_Soundland_HLSM_Guttural.wav' #判定したい音源のPATH
 
-print("********** start "+data_path" **********")
-
-#time.sleep(30)
-#cv2.WaitKey(0)
-
-categorize_model_path = './saved_model/categorize_model' #分類モデルのPATH
-determine_model_path = './saved_model/determine_model' #異常判別モデルのPATH
+categorize_model_path = 'saved_model/categorize_model' #分類モデルのPATH
+determine_model_path = 'saved_model/determine_model' #異常判別モデルのPATH
 SampRate = 16000
 
 data_list = np.array([])

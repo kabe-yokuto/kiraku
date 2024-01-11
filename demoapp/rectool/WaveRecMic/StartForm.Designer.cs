@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartForm));
             richTextBox1 = new RichTextBox();
             recButton = new Button();
             stopButton = new Button();
@@ -37,12 +38,16 @@
             listBox1 = new ListBox();
             label3 = new Label();
             label4 = new Label();
+            pictureBox1 = new PictureBox();
+            line_image = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)line_image).BeginInit();
             SuspendLayout();
             // 
             // richTextBox1
             // 
             richTextBox1.Font = new Font("Yu Gothic UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            richTextBox1.Location = new Point(352, 38);
+            richTextBox1.Location = new Point(352, 153);
             richTextBox1.Margin = new Padding(3, 2, 3, 2);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.Size = new Size(316, 184);
@@ -53,7 +58,7 @@
             // 
             // recButton
             // 
-            recButton.Location = new Point(287, 254);
+            recButton.Location = new Point(287, 369);
             recButton.Margin = new Padding(3, 2, 3, 2);
             recButton.Name = "recButton";
             recButton.Size = new Size(151, 22);
@@ -65,7 +70,7 @@
             // 
             // stopButton
             // 
-            stopButton.Location = new Point(460, 254);
+            stopButton.Location = new Point(460, 369);
             stopButton.Name = "stopButton";
             stopButton.Size = new Size(165, 23);
             stopButton.TabIndex = 2;
@@ -97,12 +102,12 @@
             // 
             // deviceCheckButton
             // 
-            deviceCheckButton.Font = new Font("Yu Gothic UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            deviceCheckButton.Location = new Point(12, 254);
+            deviceCheckButton.Font = new Font("Yu Gothic UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            deviceCheckButton.Location = new Point(12, 369);
             deviceCheckButton.Name = "deviceCheckButton";
             deviceCheckButton.Size = new Size(269, 59);
             deviceCheckButton.TabIndex = 5;
-            deviceCheckButton.Text = "KIRAKU接続確認";
+            deviceCheckButton.Text = "Connection confirmation";
             deviceCheckButton.UseVisualStyleBackColor = true;
             deviceCheckButton.Click += deviceCheckButton_Click;
             // 
@@ -111,7 +116,7 @@
             listBox1.Font = new Font("Yu Gothic UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             listBox1.FormattingEnabled = true;
             listBox1.ItemHeight = 30;
-            listBox1.Location = new Point(11, 65);
+            listBox1.Location = new Point(11, 180);
             listBox1.Margin = new Padding(3, 2, 3, 2);
             listBox1.Name = "listBox1";
             listBox1.SelectionMode = SelectionMode.MultiSimple;
@@ -123,27 +128,50 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Yu Gothic UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(11, 16);
+            label3.Location = new Point(11, 131);
             label3.Name = "label3";
-            label3.Size = new Size(472, 45);
+            label3.Size = new Size(552, 45);
             label3.TabIndex = 7;
-            label3.Text = "音声入力デバイスを選択してください";
+            label3.Text = "Please select your audio input device.";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(350, 11);
+            label4.Location = new Point(350, 126);
             label4.Name = "label4";
             label4.Size = new Size(90, 15);
             label4.TabIndex = 8;
             label4.Text = "選択中のデバイス";
             label4.Visible = false;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(10, 10);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(230, 100);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 9;
+            pictureBox1.TabStop = false;
+            // 
+            // line_image
+            // 
+            line_image.Image = (Image)resources.GetObject("line_image.Image");
+            line_image.Location = new Point(12, 117);
+            line_image.Name = "line_image";
+            line_image.Size = new Size(600, 1);
+            line_image.SizeMode = PictureBoxSizeMode.StretchImage;
+            line_image.TabIndex = 10;
+            line_image.TabStop = false;
+            // 
             // StartForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.HighlightText;
             ClientSize = new Size(692, 438);
+            Controls.Add(line_image);
+            Controls.Add(pictureBox1);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(listBox1);
@@ -158,6 +186,8 @@
             Text = "音声入力デバイスを選択してください";
             WindowState = FormWindowState.Maximized;
             Shown += StartForm_Shown;
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)line_image).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -173,5 +203,7 @@
         private ListBox listBox1;
         private Label label3;
         private Label label4;
+        private PictureBox pictureBox1;
+        private PictureBox line_image;
     }
 }

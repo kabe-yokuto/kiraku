@@ -68,9 +68,13 @@ namespace WaveRecMic
             int width = this.Size.Width;
             int height = this.Size.Height;
 
-            plotView1.Size = new Size(width - 32, height * 3 / 4);
-            plotView1.Left = 8;
+            plotView1.Size = new Size(width - 64, height * 3 / 5);
+            plotView1.Left = 32;
+            plotView1.Top = 125;
 
+
+            line_image.Left = 0;
+            line_image.Size = new Size(width, 1);
 
             recButton.Left = Width / 3 - recButton.Size.Width / 2;
             recButton.Top = height - recButton.Size.Height - 64;
@@ -307,8 +311,8 @@ namespace WaveRecMic
 
             // Pythonのアプリ―ケーション
             // C#の実行ファイルと同じフォルダかフルパスで指定します。
-            string PythonApp = "biosonoColabTest.py";
-           // string PythonApp = "inference.py";
+            //string PythonApp = "biosonoColabTest.py";
+            string PythonApp = "inference.py";
             //string PythonApp = pythonFolder + "inference.py";
             //string PythonApp = "hello.py";
 

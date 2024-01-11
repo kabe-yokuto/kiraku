@@ -69,12 +69,19 @@ namespace WaveRecMic
             int width = this.Size.Width;
             int height = this.Size.Height;
 
-            deviceCheckButton.Left = Width / 2 - deviceCheckButton.Size.Width / 2;
-            deviceCheckButton.Top = height - deviceCheckButton.Size.Height - 64;
-
+            line_image.Left = 0;
+            line_image.Size = new Size(width, 1);
 
             listBox1.Left = Width / 2 - width * 3 / 4 / 2;
-            listBox1.Size = new Size(width*3/4, height * 3 / 4);
+            listBox1.Size = new Size(width * 3 / 4, height * 3 / 5);
+
+            label3.Left = listBox1.Left;
+
+            deviceCheckButton.Left = Width / 2 - deviceCheckButton.Size.Width / 2;
+            deviceCheckButton.Top = listBox1.Top+height*3/5+8;
+
+
+         
 
             //listBox1.Size.Width = width * 3 / 4;
             //listBox1.Size.Height = height * 3 / 4;
