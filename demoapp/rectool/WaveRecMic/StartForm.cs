@@ -228,8 +228,8 @@ namespace WaveRecMic
 
         private void deviceOpen(string name)
         {
-            if (deviceNameList.IndexOf(name) == -1)
-            {
+            //if (deviceNameList.IndexOf(name) == -1)
+            //{
                 this.Location = new Point(0, 0);
 
                 RecordForm f = new RecordForm();
@@ -239,10 +239,19 @@ namespace WaveRecMic
                 deviceFormList.Add(f);
                 f.SetTitle(name);
                 f.Owner = this;
+
+                f.FormClosed += new FormClosedEventHandler(RecForm_FormClosed);
+                
                 f.Show();
                 f.Left = 0 + (no % 4) * f.Width;
                 f.Top = this.Height + (no / 4) * f.Height;
-            }
+            //}
+        }
+
+        //˜^‰¹For2‚ª•Â‚¶‚½Žž
+        private void RecForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            listBox1.SelectedIndex = -1;
         }
 
         public void deviceClose(string name)
