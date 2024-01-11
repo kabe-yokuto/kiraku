@@ -40,6 +40,7 @@
             label4 = new Label();
             pictureBox1 = new PictureBox();
             line_image = new PictureBox();
+            closeButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)line_image).BeginInit();
             SuspendLayout();
@@ -164,12 +165,23 @@
             line_image.TabIndex = 10;
             line_image.TabStop = false;
             // 
+            // closeButton
+            // 
+            closeButton.Location = new Point(661, 0);
+            closeButton.Name = "closeButton";
+            closeButton.Size = new Size(28, 23);
+            closeButton.TabIndex = 16;
+            closeButton.Text = "×";
+            closeButton.UseVisualStyleBackColor = true;
+            closeButton.Click += closeButton_Click;
+            // 
             // StartForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.HighlightText;
             ClientSize = new Size(692, 438);
+            Controls.Add(closeButton);
             Controls.Add(line_image);
             Controls.Add(pictureBox1);
             Controls.Add(label4);
@@ -181,6 +193,7 @@
             Controls.Add(stopButton);
             Controls.Add(recButton);
             Controls.Add(richTextBox1);
+            FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 2, 3, 2);
             Name = "StartForm";
             Text = "音声入力デバイスを選択してください";
@@ -205,5 +218,6 @@
         private Label label4;
         private PictureBox pictureBox1;
         private PictureBox line_image;
+        private Button closeButton;
     }
 }

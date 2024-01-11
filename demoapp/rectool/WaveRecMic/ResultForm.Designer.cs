@@ -60,9 +60,9 @@
             judgeLabel.Font = new Font("Yu Gothic UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
             judgeLabel.Location = new Point(157, 274);
             judgeLabel.Name = "judgeLabel";
-            judgeLabel.Size = new Size(293, 45);
+            judgeLabel.Size = new Size(354, 45);
             judgeLabel.TabIndex = 1;
-            judgeLabel.Text = "誤嚥の疑いがあります";
+            judgeLabel.Text = "Suspected of aspiration";
             judgeLabel.TextAlign = ContentAlignment.TopCenter;
             // 
             // cautionImage
@@ -111,9 +111,9 @@
             judgeLabel2.Font = new Font("Microsoft Sans Serif", 24F, FontStyle.Regular, GraphicsUnit.Point);
             judgeLabel2.Location = new Point(206, 282);
             judgeLabel2.Name = "judgeLabel2";
-            judgeLabel2.Size = new Size(204, 37);
+            judgeLabel2.Size = new Size(234, 37);
             judgeLabel2.TabIndex = 12;
-            judgeLabel2.Text = "異常ありません";
+            judgeLabel2.Text = "No abnormality";
             // 
             // JudgeForm
             // 

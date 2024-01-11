@@ -63,11 +63,14 @@ namespace WaveRecMic
         }
 
 
-        public voidÅ@StartForm_Shown(object sender, EventArgs e)
+        public void StartForm_Shown(object sender, EventArgs e)
         {
 
             int width = this.Size.Width;
             int height = this.Size.Height;
+
+            closeButton.Left = width - closeButton.Width - 4;
+            closeButton.Top = 4;
 
             line_image.Left = 0;
             line_image.Size = new Size(width, 1);
@@ -78,10 +81,10 @@ namespace WaveRecMic
             label3.Left = listBox1.Left;
 
             deviceCheckButton.Left = Width / 2 - deviceCheckButton.Size.Width / 2;
-            deviceCheckButton.Top = listBox1.Top+height*3/5+8;
+            deviceCheckButton.Top = listBox1.Top + height * 3 / 5 + 8;
 
 
-         
+
 
             //listBox1.Size.Width = width * 3 / 4;
             //listBox1.Size.Height = height * 3 / 4;
@@ -101,7 +104,8 @@ namespace WaveRecMic
         {
             bool flag = false;
 
-            foreach( RecordForm f in deviceFormList) {
+            foreach (RecordForm f in deviceFormList)
+            {
                 if (f.recFlag) flag = true;
             }
             recFlag = flag;
@@ -230,21 +234,21 @@ namespace WaveRecMic
         {
             //if (deviceNameList.IndexOf(name) == -1)
             //{
-                this.Location = new Point(0, 0);
+            this.Location = new Point(0, 0);
 
-                RecordForm f = new RecordForm();
+            RecordForm f = new RecordForm();
 
-                int no = deviceNameList.Count;
-                deviceNameList.Add(name);
-                deviceFormList.Add(f);
-                f.SetTitle(name);
-                f.Owner = this;
+            int no = deviceNameList.Count;
+            deviceNameList.Add(name);
+            deviceFormList.Add(f);
+            f.SetTitle(name);
+            f.Owner = this;
 
-                f.FormClosed += new FormClosedEventHandler(RecForm_FormClosed);
-                
-                f.Show();
-                f.Left = 0 + (no % 4) * f.Width;
-                f.Top = this.Height + (no / 4) * f.Height;
+            f.FormClosed += new FormClosedEventHandler(RecForm_FormClosed);
+
+            f.Show();
+            f.Left = 0 + (no % 4) * f.Width;
+            f.Top = this.Height + (no / 4) * f.Height;
             //}
         }
 
@@ -282,6 +286,11 @@ namespace WaveRecMic
         private void plotView1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
