@@ -31,7 +31,7 @@ namespace WaveRecMic
 
         WaveInEvent waveIn; // = new WaveInEvent;
         WaveFileWriter waveWriter;  // = new WaveFileWriter;
-        
+
         WaveOutEvent waveOut;
 
         string formName;
@@ -68,7 +68,10 @@ namespace WaveRecMic
             int width = this.Size.Width;
             int height = this.Size.Height;
 
-            plotView1.Size = new Size(width - 64, height * 3 / 5);
+            closeButton.Left = width - closeButton.Width-4;
+            closeButton.Top = 4;
+
+            plotView1.Size = new Size(width - (64 + 8), height * 3 / 5);
             plotView1.Left = 32;
             plotView1.Top = 125;
 
@@ -212,7 +215,7 @@ namespace WaveRecMic
         public OxyPlot.Axes.LinearAxis AxisY { get; } = new OxyPlot.Axes.LinearAxis();
 
 
-        
+
         private void ProcessSample(float sample)
         {
             _recorded.Add(sample);
@@ -322,7 +325,8 @@ namespace WaveRecMic
             // python.exeの実行結果を読み込む変数
             var result = string.Empty;
 
-            try{
+            try
+            {
                 // python.exeのプロセスを設定します。
                 using (var process = new Process
                 {
@@ -365,8 +369,10 @@ namespace WaveRecMic
 
                 }
 
-            } catch ( Exception e){
-                    Debug.WriteLine("error:"+e.ToString());
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("error:" + e.ToString());
             }
             // python.exeの実行結果を表示します。
             //System.Diagnostics.Debug.WriteLine(result);
@@ -418,6 +424,11 @@ namespace WaveRecMic
             while (waveOut.PlaybackState == PlaybackState.Playing) ; // 再生の終了を待つ
 
             waveOut.Dispose();
+        }
+
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 

@@ -128,6 +128,7 @@
             Controls.Add(cautionImage);
             Controls.Add(judgeLabel);
             Controls.Add(okButton);
+            FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 2, 3, 2);
             Name = "JudgeForm";
             Text = "判定結果";
