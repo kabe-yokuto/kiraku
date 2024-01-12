@@ -49,20 +49,40 @@ categorize_model = tf.keras.models.load_model(categorize_model_path)
 categorized_data = categorize_model.predict(data_list) #categorized_dataは、区間毎に5種の音声のそれぞれの確率(0<x<1)のnp.arrayの配列
 labeled_list = np.argmax(categorized_data, axis = 1)
 
-def make_log(log_data, last_num):
+def make_log(log_data, last_num, index_ary): #ログ出力関数
     log_data = log_data.astype(int)
+    if last_num == 1:
+        class_list = np.array(['swallow_sound','word','breath','no_sound'])
+    elif last_num == 2:
+        class_list = np.array(['normal','abnormal'])
+    log_data = class_list[log_data]
     log_data = log_data.reshape([-1,1])
-    add_ary = np.arange(len(log_data))
-    add_ary = add_ary.reshape([-1,1])
-    log_data = np.concatenate([add_ary, log_data], 1)
+    
+    def make_index(id_ary):
+        id_ary = id_ary /2
+        id_ary2 = id_ary +1
+        id_ary = id_ary -1
+        id_ary = np.char.mod('%.{}f'.format(1), id_ary)
+        id_ary2 = np.char.mod('%.{}f'.format(1), id_ary2)
+        add_string = np.full(len(id_ary), '～')
+        result_ary = np.core.defchararray.add(id_ary, add_string)
+        result_ary = np.core.defchararray.add(result_ary, id_ary2)
+        return result_ary
+
+    index_ary = make_index(index_ary)
+    index_ary = index_ary.reshape([-1,1])
+    
+    log_data = np.concatenate([index_ary, log_data], 1)
     np.savetxt(f'test_log{last_num}.txt', log_data, fmt = '%s')
-#make_log(labeled_list, 1)
+make_log(labeled_list, 1, np.arange(len(labeled_list))) #ログ出力用(1)。ここをコメントアウトで出力無しに
 
 to_determine_list = []
+id_list = np.array([]) #ログ出力用の音声データindex
 
 for i in range(len(labeled_list)):
     if labeled_list[i] == 2:
         to_determine_list.append(data_list[i])
+        id_list = np.append(id_list, i) #ログ出力用
 
 if len(to_determine_list) == 0:
     print('result:No breathing sounds detected')
@@ -72,7 +92,7 @@ to_determine_list = np.array(to_determine_list)
 determine_model = tf.keras.models.load_model(determine_model_path)
 determined_data = determine_model.predict(to_determine_list) #determined_dataは、区間毎に誤嚥であるfroat型の確率(0<x<1)のnp.arrayの配列
 
-#make_log(determined_data, 2)
+make_log(determined_data, 2, id_list) #ログ出力用(2)。ここをコメントアウトで出力無しに
 
 goen_count = np.count_nonzero(determined_data > 0.5)
 seijou_count = np.count_nonzero(determined_data <= 0.5)
