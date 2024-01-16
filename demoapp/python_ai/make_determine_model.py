@@ -25,14 +25,13 @@ for i in dataset_subdir:
         wav_path = str(wav_path)
         train_label = tf.strings.split(input = wav_path, sep = os.path.sep)
         train_label = train_label[-2]
-        if train_label == '呼吸音' :
+        if train_label == 'breath' :
             data_set.append((wav_path, 0))
             
-        elif train_label == '異常呼吸音':
+        elif train_label == 'abnormal_breath':
             data_set.append((wav_path, 1))
 
 print('Loading is finished.')
-print('datasize =',len(data_set))
 print('uptime:',time.time() - start_time)
 print('Preprocessing data...')
 
@@ -48,22 +47,22 @@ def data_trans(d_set):
     wav_data = tf.io.read_file(wav_data)
     wav_data, _ = tf.audio.decode_wav(wav_data)
     wav_data = tf.squeeze(wav_data, axis = -1)
-    num = 0
-    while num +2 *SampRate < len(wav_data):
-        data_list = np.append(data_list ,wav_data[num:num +2 *SampRate])
+    num = -SampRate
+    while num +SampRate < len(wav_data):
+        to_app_wav = wav_data[max(0, num) :min(num +SampRate *2, len(wav_data)-1)]
+        if num < 0:
+            to_app_wav = np.append(np.zeros(-num), to_app_wav)
+        if len(to_app_wav) < SampRate *2:
+            to_app_wav = np.append(to_app_wav, np.zeros(SampRate *2 -len(to_app_wav)))
+        
+        data_list = np.append(data_list ,to_app_wav)
         label_list = np.append(label_list ,label)
         num += int(SampRate /2)
-        
-    if num +SampRate <len(wav_data):
-        pad_num = SampRate *2 - len(wav_data[num:])
-        app_data = np.append(wav_data[num:], np.zeros(pad_num))
-        data_list = np.append(data_list, app_data)
-        label_list = np.append(label_list ,label)
         
 for i in data_set:
     data_trans(i)
     
-data_list = data_list.reshape(-1, 2 *SampRate)
+data_list = data_list.reshape(-1, SampRate *2)
 
 def app_stft(data):
     data = tf.signal.stft(data, frame_length = 255, frame_step = 128)
