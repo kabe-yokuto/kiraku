@@ -10,7 +10,7 @@ tf.get_logger().setLevel("ERROR")
 
 args = sys.argv
 
-data_path = 'D:/kiraku/demoapp/python_ai/SoundSource/test-12-26/231221_120637_Soundland_HLSM_Guttural.wav' #判定したい音源のPATH
+data_path = argv[1]
 
 categorize_model_path = 'saved_model/categorize_model' #分類モデルのPATH
 determine_model_path = 'saved_model/determine_model' #異常判別モデルのPATH
