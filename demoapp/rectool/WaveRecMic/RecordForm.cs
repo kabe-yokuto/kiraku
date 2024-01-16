@@ -73,7 +73,7 @@ namespace WaveRecMic
 
             plotView1.Size = new Size(width - (64 + 8), height * 3 / 5);
             plotView1.Left = 32;
-            plotView1.Top = 125;
+            plotView1.Top = line_image.Top+8;
 
 
             line_image.Left = 0;

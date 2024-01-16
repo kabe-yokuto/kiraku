@@ -34,13 +34,13 @@ namespace WaveRecMic
             int h = judgeLabel.Size.Height;
 
             judgeLabel.Left = width / 2 - w / 2;
-            judgeLabel.Top = height / 2 + 128;
+            judgeLabel.Top = height / 2 + 200;
 
             w = judgeLabel2.Size.Width;
             h = judgeLabel2.Size.Height;
 
             judgeLabel2.Left = width / 2 - w / 2;
-            judgeLabel2.Top = height / 2 + 128;
+            judgeLabel2.Top = height / 2 + 200;
 
             cautionImage.Left = width / 2 - cautionImage.Width / 2;
             cautionImage.Top = height / 2 - cautionImage.Height / 2;

@@ -68,7 +68,8 @@
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
             pictureBox2.Location = new Point(151, 162);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(462, 224);
+            pictureBox2.Size = new Size(449, 213);
+            pictureBox2.SizeMode = PictureBoxSizeMode.AutoSize;
             pictureBox2.TabIndex = 3;
             pictureBox2.TabStop = false;
             pictureBox2.Click += pictureBox2_Click;
@@ -109,6 +110,7 @@
             Name = "ExecuteForm";
             Text = "音声認識中・・・";
             WindowState = FormWindowState.Maximized;
+            Load += ExecuteForm_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
