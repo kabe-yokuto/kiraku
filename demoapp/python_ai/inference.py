@@ -10,7 +10,7 @@ tf.get_logger().setLevel("ERROR")
 
 args = sys.argv
 
-data_path = argv[1]
+data_path = args[1]
 
 categorize_model_path = 'saved_model/categorize_model' #分類モデルのPATH
 determine_model_path = 'saved_model/determine_model' #異常判別モデルのPATH
@@ -54,7 +54,6 @@ categorized_data = categorize_model.predict(data_list) #categorized_dataは、�
 labeled_list = np.argmax(categorized_data, axis = 1)
 
 def make_log(log_data, last_num, index_ary): #ログ出力関数
-    log_data = log_data.astype(int)
     if last_num == 1:
         class_list = np.array(['swallow_sound','word','breath','no_sound'])
     elif last_num == 2:
@@ -95,6 +94,7 @@ if len(to_determine_list) == 0:
 to_determine_list = np.array(to_determine_list)
 determine_model = tf.keras.models.load_model(determine_model_path)
 determined_data = determine_model.predict(to_determine_list) #determined_dataは、区間毎に誤嚥であるfroat型の確率(0<x<1)のnp.arrayの配列
+determined_data = np.round(determined_data).astype(int)
 
 make_log(determined_data, 2, id_list) #ログ出力用(2)。ここをコメントアウトで出力無しに
 
