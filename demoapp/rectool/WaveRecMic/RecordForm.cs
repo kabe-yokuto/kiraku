@@ -40,7 +40,7 @@ namespace WaveRecMic
 
         public bool recFlag = false;
 
-        public string judge_string = "";
+        public string judge_string = "Error";
 
         string folderName1 = "icare";
         string folderName2;
@@ -310,21 +310,21 @@ namespace WaveRecMic
             */
 
             // Pythonの実行ファイル名
-            string PythonExe = "python.exe";
+            string PythonExe = "inference.exe";
 
             // Pythonのアプリ―ケーション
             // C#の実行ファイルと同じフォルダかフルパスで指定します。
             //string PythonApp = "biosonoColabTest.py";
-            string PythonApp = "inference.py";
+//            string PythonApp = "inference.py";
             //string PythonApp = pythonFolder + "inference.py";
             //string PythonApp = "hello.py";
 
             // ファイルネーム　トレーニングするか？(-Tでトレーニング)
-            PythonApp += " " + fileName + " -N";
+            string PythonApp = fileName + " -N";
 
             // python.exeの実行結果を読み込む変数
             var result = string.Empty;
-
+             
             try
             {
                 // python.exeのプロセスを設定します。
@@ -342,6 +342,8 @@ namespace WaveRecMic
                     }
                 })
                 {
+
+                    System.Diagnostics.Debug.WriteLine(PythonExe+" "+ PythonApp);
                     // python.exeのプロセスを起動します。
                     bool p = process.Start();
 
