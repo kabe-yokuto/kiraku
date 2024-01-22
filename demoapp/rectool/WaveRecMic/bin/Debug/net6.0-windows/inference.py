@@ -3,23 +3,17 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 import sys
 import numpy as np
 import tensorflow as tf
-#import cv2
-#import time
-
 tf.get_logger().setLevel("ERROR")
 
 args = sys.argv
-
 data_path = args[1]
 
 categorize_model_path = 'saved_model/categorize_model' #分類モデルのPATH
 determine_model_path = 'saved_model/determine_model' #異常判別モデルのPATH
 SampRate = 16000
 
-data_list = np.array([])
-
 def data_trans(wav_data):
-    global data_list
+    d_list = []
     wav_data = tf.io.read_file(wav_data)
     wav_data, _ = tf.audio.decode_wav(wav_data)
     wav_data = tf.squeeze(wav_data, axis = -1)
@@ -31,15 +25,11 @@ def data_trans(wav_data):
         if len(to_app_wav) < SampRate *2:
             to_app_wav = np.append(to_app_wav, np.zeros(SampRate *2 -len(to_app_wav)))
         
-        data_list = np.append(data_list ,to_app_wav)
+        d_list.append(to_app_wav)
         num += int(SampRate /2)
+    return d_list
         
-data_trans(data_path)
-if len(data_list) == 0:
-    print('result:Not enough data')
-    exit()
-    
-data_list = data_list.reshape(-1, SampRate *2)
+data_list = np.array(data_trans(data_path))
 
 def app_stft(data):
     data = tf.signal.stft(data, frame_length = 255, frame_step = 128)
@@ -80,12 +70,12 @@ def make_log(log_data, last_num, index_ary): #ログ出力関数
 make_log(labeled_list, 1, np.arange(len(labeled_list))) #ログ出力用(1)。ここをコメントアウトで出力無しに
 
 to_determine_list = []
-id_list = np.array([]) #ログ出力用の音声データindex
+id_list = [] #ログ出力用の音声データindex
 
 for i in range(len(labeled_list)):
     if labeled_list[i] == 2:
         to_determine_list.append(data_list[i])
-        id_list = np.append(id_list, i) #ログ出力用
+        id_list.append(i) #ログ出力用
 
 if len(to_determine_list) == 0:
     print('result:No breathing sounds detected')
@@ -96,7 +86,7 @@ determine_model = tf.keras.models.load_model(determine_model_path)
 determined_data = determine_model.predict(to_determine_list) #determined_dataは、区間毎に誤嚥であるfroat型の確率(0<x<1)のnp.arrayの配列
 determined_data = np.round(determined_data).astype(int)
 
-make_log(determined_data, 2, id_list) #ログ出力用(2)。ここをコメントアウトで出力無しに
+make_log(determined_data, 2, np.array(id_list)) #ログ出力用(2)。ここをコメントアウトで出力無しに
 
 goen_count = np.count_nonzero(determined_data > 0.5)
 seijou_count = np.count_nonzero(determined_data <= 0.5)

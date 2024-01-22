@@ -37,12 +37,9 @@ print('Preprocessing data...')
 
 np.random.shuffle(data_set)
 
-data_list = np.array([])
-label_list = np.array([])
-
 def data_trans(d_set):
-    global data_list
-    global label_list
+    d_list = []
+    l_list = []
     wav_data, label = d_set
     wav_data = tf.io.read_file(wav_data)
     wav_data, _ = tf.audio.decode_wav(wav_data)
@@ -55,14 +52,21 @@ def data_trans(d_set):
         if len(to_app_wav) < SampRate *2:
             to_app_wav = np.append(to_app_wav, np.zeros(SampRate *2 -len(to_app_wav)))
         
-        data_list = np.append(data_list ,to_app_wav)
-        label_list = np.append(label_list ,label)
+        d_list.append(to_app_wav)
+        l_list.append(label)
         num += int(SampRate /2)
+    return (d_list, l_list)
         
+data_list = []
+label_list = []
+
 for i in data_set:
-    data_trans(i)
+    data_app, label_app = data_trans(i)
+    data_list.extend(data_app)
+    label_list.extend(label_app)
     
-data_list = data_list.reshape(-1, SampRate *2)
+data_list = np.array(data_list)
+label_list = np.array(label_list)
 
 def app_stft(data):
     data = tf.signal.stft(data, frame_length = 255, frame_step = 128)
@@ -74,7 +78,6 @@ data_list = np.array(list(map(lambda x: app_stft(x), data_list)))
 
 print('Preprocessing completed.')
 print('uptime:',time.time() - start_time)
-
 
 model = Sequential()
 model.add(layers.Input(shape=(249,129,1)))
