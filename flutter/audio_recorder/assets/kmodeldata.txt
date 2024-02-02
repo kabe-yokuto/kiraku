@@ -1,0 +1,4 @@
+swallow_sound
+word
+breath
+no_sound
