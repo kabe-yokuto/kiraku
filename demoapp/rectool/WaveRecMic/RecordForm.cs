@@ -111,6 +111,8 @@ namespace WaveRecMic
         {
             if (recFlag) return;
 
+            Console.WriteLine("recording...");
+
             recButtonControl(true);
 
             _lineSeries.Points.Clear();
