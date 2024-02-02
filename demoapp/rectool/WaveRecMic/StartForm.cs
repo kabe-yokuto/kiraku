@@ -63,18 +63,28 @@ namespace WaveRecMic
         }
 
 
-        public voidÅ@StartForm_Shown(object sender, EventArgs e)
+        public void StartForm_Shown(object sender, EventArgs e)
         {
 
             int width = this.Size.Width;
             int height = this.Size.Height;
 
-            deviceCheckButton.Left = Width / 2 - deviceCheckButton.Size.Width / 2;
-            deviceCheckButton.Top = height - deviceCheckButton.Size.Height - 64;
+            closeButton.Left = width - closeButton.Width - 4;
+            closeButton.Top = 4;
 
+            line_image.Left = 0;
+            line_image.Size = new Size(width, 1);
 
             listBox1.Left = Width / 2 - width * 3 / 4 / 2;
-            listBox1.Size = new Size(width*3/4, height * 3 / 4);
+            listBox1.Size = new Size(width * 3 / 4, height * 3 / 5);
+
+            label3.Left = listBox1.Left;
+
+            deviceCheckButton.Left = Width / 2 - deviceCheckButton.Size.Width / 2;
+            deviceCheckButton.Top = listBox1.Top + height * 3 / 5 + 8;
+
+
+
 
             //listBox1.Size.Width = width * 3 / 4;
             //listBox1.Size.Height = height * 3 / 4;
@@ -94,7 +104,8 @@ namespace WaveRecMic
         {
             bool flag = false;
 
-            foreach( RecordForm f in deviceFormList) {
+            foreach (RecordForm f in deviceFormList)
+            {
                 if (f.recFlag) flag = true;
             }
             recFlag = flag;
@@ -221,21 +232,30 @@ namespace WaveRecMic
 
         private void deviceOpen(string name)
         {
-            if (deviceNameList.IndexOf(name) == -1)
-            {
-                this.Location = new Point(0, 0);
+            //if (deviceNameList.IndexOf(name) == -1)
+            //{
+            this.Location = new Point(0, 0);
 
-                RecordForm f = new RecordForm();
+            RecordForm f = new RecordForm();
 
-                int no = deviceNameList.Count;
-                deviceNameList.Add(name);
-                deviceFormList.Add(f);
-                f.SetTitle(name);
-                f.Owner = this;
-                f.Show();
-                f.Left = 0 + (no % 4) * f.Width;
-                f.Top = this.Height + (no / 4) * f.Height;
-            }
+            int no = deviceNameList.Count;
+            deviceNameList.Add(name);
+            deviceFormList.Add(f);
+            f.SetTitle(name);
+            f.Owner = this;
+
+            f.FormClosed += new FormClosedEventHandler(RecForm_FormClosed);
+
+            f.Show();
+            f.Left = 0 + (no % 4) * f.Width;
+            f.Top = this.Height + (no / 4) * f.Height;
+            //}
+        }
+
+        //ò^âπFor2Ç™ï¬Ç∂ÇΩéû
+        private void RecForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            listBox1.SelectedIndex = -1;
         }
 
         public void deviceClose(string name)
@@ -266,6 +286,11 @@ namespace WaveRecMic
         private void plotView1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

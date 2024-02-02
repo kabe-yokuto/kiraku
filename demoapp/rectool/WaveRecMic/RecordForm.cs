@@ -19,14 +19,19 @@ using System.Diagnostics.Tracing;
 using System.Xml.Linq;
 
 using FFmpeg.AutoGen;
+using System.Linq.Expressions;
 
 namespace WaveRecMic
 {
     public partial class RecordForm : Form
     {
+        //string pythonFolder = "D:\\kiraku\\demoapp\\python_ai\\";
+        //string pythonFolder = "D:\\kiraku\\demoapp\\rectool\\WaveRecMic\\bin\\Debug\\net6.0-windows\\biosonoColabTest.py";
+        string pythonFolder = "biosonoColabTest.py";
+
         WaveInEvent waveIn; // = new WaveInEvent;
         WaveFileWriter waveWriter;  // = new WaveFileWriter;
-        
+
         WaveOutEvent waveOut;
 
         string formName;
@@ -35,7 +40,7 @@ namespace WaveRecMic
 
         public bool recFlag = false;
 
-        public string judge_string = "";
+        public string judge_string = "Error";
 
         string folderName1 = "icare";
         string folderName2;
@@ -63,9 +68,16 @@ namespace WaveRecMic
             int width = this.Size.Width;
             int height = this.Size.Height;
 
-            plotView1.Size = new Size(width - 32, height * 3 / 4);
-            plotView1.Left = 8;
+            closeButton.Left = width - closeButton.Width-4;
+            closeButton.Top = 4;
 
+            plotView1.Size = new Size(width - (64 + 8), height * 3 / 5);
+            plotView1.Left = 32;
+            plotView1.Top = line_image.Top+8;
+
+
+            line_image.Left = 0;
+            line_image.Size = new Size(width, 1);
 
             recButton.Left = Width / 3 - recButton.Size.Width / 2;
             recButton.Top = height - recButton.Size.Height - 64;
@@ -98,6 +110,8 @@ namespace WaveRecMic
         public void RecStart(string name)
         {
             if (recFlag) return;
+
+            Console.WriteLine("recording...");
 
             recButtonControl(true);
 
@@ -203,7 +217,7 @@ namespace WaveRecMic
         public OxyPlot.Axes.LinearAxis AxisY { get; } = new OxyPlot.Axes.LinearAxis();
 
 
-        
+
         private void ProcessSample(float sample)
         {
             _recorded.Add(sample);
@@ -298,59 +312,72 @@ namespace WaveRecMic
             */
 
             // Pythonの実行ファイル名
-            string PythonExe = "python.exe";
+            string PythonExe = "inference.exe";
 
             // Pythonのアプリ―ケーション
             // C#の実行ファイルと同じフォルダかフルパスで指定します。
-            string PythonApp = "biosonoColabTest.py";
+            //string PythonApp = "biosonoColabTest.py";
+//            string PythonApp = "inference.py";
+            //string PythonApp = pythonFolder + "inference.py";
             //string PythonApp = "hello.py";
 
             // ファイルネーム　トレーニングするか？(-Tでトレーニング)
-            PythonApp += " " + fileName + " -N";
+            string PythonApp = fileName + " -N";
 
             // python.exeの実行結果を読み込む変数
             var result = string.Empty;
-
-            // python.exeのプロセスを設定します。
-            using (var process = new Process
+             
+            try
             {
-                // Process.Startメソッドに渡すプロパティを設定します。
-                StartInfo = new ProcessStartInfo(PythonExe)
+                // python.exeのプロセスを設定します。
+                using (var process = new Process
                 {
-                    // OSのシェルを使用しません。
-                    UseShellExecute = false,
-                    // pythonのテキスト出力をStandardOutputストリームに出力します。
-                    RedirectStandardOutput = true,
-                    // python.exeのコマンドライン引数
-                    Arguments = PythonApp
-                }
-            })
-            {
-                // python.exeのプロセスを起動します。
-                bool p = process.Start();
-
-                ExecuteForm loadingdialog = new ExecuteForm();
-                loadingdialog.TopMost = true;
-                loadingdialog.Show();
-
-                System.Diagnostics.Debug.WriteLine("Python start....");
-
-                // python.exeのプロセスの終了を待ちます。
-                //process.WaitForExit(60 * 10 * 1000);　//とりあえず適当に１０分でタイムアウトとしておく
-                int t = 0;
-                while (process.WaitForExit(100) == false)
+                    // Process.Startメソッドに渡すプロパティを設定します。
+                    StartInfo = new ProcessStartInfo(PythonExe)
+                    {
+                        // OSのシェルを使用しません。
+                        UseShellExecute = false,
+                        // pythonのテキスト出力をStandardOutputストリームに出力します。
+                        RedirectStandardOutput = true,
+                        // python.exeのコマンドライン引数
+                        Arguments = PythonApp
+                    }
+                })
                 {
-                    loadingdialog.Draw();
-                    //System.Diagnostics.Debug.WriteLine("wait" + (t++));
+
+                    System.Diagnostics.Debug.WriteLine(PythonExe+" "+ PythonApp);
+                    // python.exeのプロセスを起動します。
+                    bool p = process.Start();
+
+                    ExecuteForm loadingdialog = new ExecuteForm();
+                    loadingdialog.TopMost = true;
+                    loadingdialog.Show();
+
+                    System.Diagnostics.Debug.WriteLine("Python start....");
+
+                    // python.exeのプロセスの終了を待ちます。
+                    // process.WaitForExit(60 * 20 * 1000);　//とりあえず適当に１０分でタイムアウトとしておく
+
+                    int t = 0;
+                    while (process.WaitForExit(100) == false)
+                    {
+                        loadingdialog.Draw();
+                        //System.Diagnostics.Debug.WriteLine("wait" + (t++));
+                    }
+
+                    System.Diagnostics.Debug.WriteLine("....Python end");
+
+                    loadingdialog.Close();
+
+                    result = process.StandardOutput.ReadToEnd();
+
                 }
-                System.Diagnostics.Debug.WriteLine("....Python end");
-
-                loadingdialog.Close();
-
-                result = process.StandardOutput.ReadToEnd();
 
             }
-
+            catch (Exception e)
+            {
+                Debug.WriteLine("error:" + e.ToString());
+            }
             // python.exeの実行結果を表示します。
             //System.Diagnostics.Debug.WriteLine(result);
 
@@ -401,6 +428,11 @@ namespace WaveRecMic
             while (waveOut.PlaybackState == PlaybackState.Playing) ; // 再生の終了を待つ
 
             waveOut.Dispose();
+        }
+
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 

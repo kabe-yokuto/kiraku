@@ -26,16 +26,61 @@ namespace WaveRecMic
             int width = this.Size.Width;
             int height = this.Size.Height;
 
-            int w = judgeLabel.Size.Width;
-            int h = judgeLabel.Size.Height;
+            line_image.Left = 0;
+            line_image.Size = new Size(width, 1);
 
-            judgeLabel.Left = width / 2 - w / 2;
-            judgeLabel.Top = height / 2 - h / 2;
+
+           
+
+            cautionImage.Left = width / 2 - cautionImage.Width / 2;
+            cautionImage.Top = height / 2 - cautionImage.Height / 2;
+
+            okImage.Left = width / 2 - okImage.Width / 2;
+            okImage.Top = height / 2 - okImage.Height / 2;
 
 
             okButton.Left = Width / 2 - okButton.Size.Width / 2;
             okButton.Top = height - okButton.Size.Height - 64;
             
+            if( resultString=="Normal")
+            {
+                cautionImage.Visible = false;
+                okImage.Visible = true;
+
+                judgeLabel.Visible = false;
+                judgeLabel2.Visible = true;
+            }
+            else
+            {
+                cautionImage.Visible = true;
+                okImage.Visible = false;
+
+                judgeLabel.Visible = true;
+                judgeLabel2.Visible = false;
+
+                if (resultString == "Abnormal")
+                {
+                    judgeLabel.Text = "Suspected of aspiration";
+                }
+                else
+                {
+
+                    judgeLabel.Text = resultString;
+                }
+                
+            }
+
+            int w = judgeLabel.Size.Width;
+            int h = judgeLabel.Size.Height;
+
+            judgeLabel.Left = width / 2 - w / 2;
+            judgeLabel.Top = height / 2 + 200;
+
+            w = judgeLabel2.Size.Width;
+            h = judgeLabel2.Size.Height;
+
+            judgeLabel2.Left = width / 2 - w / 2;
+            judgeLabel2.Top = height / 2 + 200;
 
             this.Refresh();
         }
@@ -43,7 +88,7 @@ namespace WaveRecMic
         public void setResult(string str)
         {
             resultString = str;
-            judgeLabel.Text = resultString;
+            //judgeLabel.Text = resultString;
         }
 
         private void okButton_Click(object sender, EventArgs e)
